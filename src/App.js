@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css';
 import Nav from './components/nav/Nav'
+import RegistroCiudadanos from './pages/moduloRegistroCiudadanos/RegistroCiudadanos'
 
 function App() {
   return (
@@ -8,7 +9,10 @@ function App() {
    <header>
     <Nav></Nav>
    </header>
-   <h1>Hello</h1>
+   <main>
+   <RegistroCiudadanos></RegistroCiudadanos>
+
+   </main>
    </>
   );
 }
