@@ -1,0 +1,13 @@
+.hero__banner{
+    min-height: 250px;
+    width: 100%;
+    background-image: url(../../assets/banner.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-top: 10px;
+}
+
+.page__title{
+    margin-top: 30px;
+}

@@ -17,8 +17,9 @@ body{
   width: 100vw;
 }
 
-header{
-  margin: 0 7vw;
+
+nav{
+  padding: 0 7vw;
 }
 
 main{
@@ -71,9 +72,33 @@ main{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
 }
 
-.generic__button{
+select{
+  border: 1px solid #e8e8e8;
+  height: 35px;
+  border-radius: 5px;
+}
+
+span{
+  background-color: rgb(69, 69, 69);
+  border-radius: 10px;
+
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+  margin: 15px 5px;
+  border-radius: 10px;
+}
+
+.generic-button{
   background-color: rgba(19, 19, 196, 0.681);
     width: 180px;
     height: 40px;
@@ -83,7 +108,7 @@ main{
     padding: 5px 20px;
     display: inline-block;
     margin: 4px 2px;
-    border-radius: 16px;
+    border-radius: 10px;
     border: none;
     cursor: pointer;
 }

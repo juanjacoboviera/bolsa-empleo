@@ -1,14 +1,7 @@
-.form__container{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.--form-modification{
   width: 90%;
   height: 500px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
-  margin: 15px 5px;
-  border-radius: 10px;
+ 
 }
 
 .form__description{
@@ -46,12 +39,6 @@
 }
 
 .input__container input{
-    border: 1px solid #e8e8e8;
-    height: 35px;
-    border-radius: 5px;
-}
-
-.input__container select{
     border: 1px solid #e8e8e8;
     height: 35px;
     border-radius: 5px;

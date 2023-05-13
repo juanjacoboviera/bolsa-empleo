@@ -7,14 +7,8 @@ import RegistroVacantes from './pages/moduloRegistroVacantes/RegistroVacantes'
 function App() {
   return (
    <>
-   <header>
-    <Nav></Nav>
-   </header>
-   <main>
    {/* <RegistroCiudadanos></RegistroCiudadanos> */}
    <RegistroVacantes></RegistroVacantes>
-
-   </main>
    </>
   );
 }
