@@ -8,9 +8,9 @@ import AdministrarCiudadanos from './pages/moduloAdministrarCiudadanos/Administr
 function App() {
   return (
    <>
-   {/* <RegistroCiudadanos></RegistroCiudadanos> */}
+   <RegistroCiudadanos></RegistroCiudadanos>
    {/* <RegistroVacantes></RegistroVacantes> */}
-   <AdministrarCiudadanos></AdministrarCiudadanos>
+   {/* <AdministrarCiudadanos></AdministrarCiudadanos> */}
 
    </>
   );
