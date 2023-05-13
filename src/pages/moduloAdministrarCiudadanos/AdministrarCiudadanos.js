@@ -1,6 +1,7 @@
 import React from 'react'
 import Nav from '../../components/nav/Nav'
 import Perfil from '../../components/perfil/Perfil'
+import Modal from '../../components/modal/Modal'
 import './administrarCiudadanos.css'
 
 const AdministrarCiudadanos = () => {
@@ -11,6 +12,7 @@ const AdministrarCiudadanos = () => {
       <section className='hero__banner'></section>
     </header>
     <main>
+      {/* <Modal></Modal> */}
         <h1 className='page__title'>Perfiles</h1>
         <table>
             <thead>
