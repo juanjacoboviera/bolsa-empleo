@@ -1,0 +1,48 @@
+table{
+    border: 1px solid #d1d1d1;
+    border-spacing: inherit;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 6px 20px 0px;
+    margin: 30px 0;
+}
+
+.table__title{
+    font-weight: 600;
+
+}
+
+thead{
+    background-color:  rgba(19, 19, 196, 0.681);
+    color: white;
+}
+
+tr{
+    height: 70px;
+}
+
+tr:nth-child(even) {
+    background-color: #ffffff;
+  }
+
+tr:nth-child(odd) {
+    background-color: #ebecf4;
+  }
+
+td{
+    font-weight: 300;
+    width: 300px;
+    padding: 10px;
+}
+
+.table__body{
+    border: 1px solid lightgray;
+}
+
+.hero__banner{
+    min-height: 250px;
+    width: 100%;
+    background-image: url(../../assets/banner1a.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-top: 10px;
+}

@@ -8,7 +8,7 @@ const RegistroVacantes = () => {
    <>
     <header>
       <Nav></Nav>
-      <section className='hero__banner'></section>
+      <section className='hero__vacantes'></section>
    </header>
    <main>
       <h1 className='page__title'>Vacantes</h1>
