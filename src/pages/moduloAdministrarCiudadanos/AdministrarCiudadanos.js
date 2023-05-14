@@ -40,7 +40,7 @@ const AdministrarCiudadanos = () => {
               </tr>
             </thead>
             <tbody>
-            {candidates.map(candidate => <Perfil key={candidate.id} candidate={candidate} setCandidates={setCandidates}></Perfil>)}
+            {candidates.length == 0? <p>No hay perfiles registrados en la aplicación</p> : candidates.map(candidate => <Perfil key={candidate.id} candidate={candidate} setCandidates={setCandidates}></Perfil>)}
             </tbody>
         </table>
     </main>

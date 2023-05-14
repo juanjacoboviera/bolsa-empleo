@@ -40,7 +40,7 @@ const RegistroCiudadanos = () => {
     .then(results => setDocumentTypes(results))
     
   }, [])
-  console.log(id)
+ 
 
   const updateFields = (evt) => {
     evt.preventDefault()
@@ -59,13 +59,18 @@ const RegistroCiudadanos = () => {
     fields = fields.join(',')
     values = values.join(',')
 
-    fetch(url+`?action=save&table=candidates&fields=${fields}&values=${values}`)
-    .then(data=> data.json())
-    .then(results => navigate("/editar-perfiles/"+ results.id))
     if(editCandidate){
+      fetch(url+`?action=update&table=candidates&fields=${fields}&values=${values}`)
+      .then(data=> data.json())
+      .then(results => navigate("/editar-perfiles/"+ results.id))
       swal("Usuario editado!", "El usuario se ha editado de manera exitosa!", "success");
+    }else{
+      fetch(url+`?action=save&table=candidates&fields=${fields}&values=${values}`)
+      .then(data=> data.json())
+      .then(results => navigate("/editar-perfiles/"+ results.id))
+      swal("Usuario Creado!", "El usuario se ha registrado de manera exitosa!", "success");
     }
-    swal("Usuario Creado!", "El usuario se ha registrado de manera exitosa!", "success");
+
     setEmployee({})
   }
 
@@ -80,44 +85,44 @@ const RegistroCiudadanos = () => {
           <h1 className='form__title'>{editCandidate ? "Editar Perfil" : "Registrar Perfil"}</h1>
           <p>{editCandidate ? "" : "Registra el perfil del candidato para acceder a los beneficios de la bolsa de empleo."}</p>
         </div>
-        <form className='form__registration' action="">
+        <form className='form__registration' action="submit">
           <div className="input__container">
               <label htmlFor="idType">Tipo de Documento</label>
-              <select name="document_type" id="idType" disabled={isDisabled} value={employee.document_type} onChange={updateFields}>
+              <select required name="document_type" id="idType" disabled={isDisabled} value={employee.document_type} onChange={updateFields}>
                 <option value="">Selecciona un tipo</option> 
               {documentTypes.map(type =>  <option key={type.id} value={type.id} >{type.type_name}</option> )}
             </select>
           </div>
             <div className="input__container">
               <label htmlFor="document">Número de documento</label>
-              <input id='document' name='document_number' disabled={isDisabled} type="number" value={employee.document_number || ""} onChange={updateFields} />
+              <input required id='document' name='document_number' disabled={isDisabled} type="number" value={employee.document_number || ""} onChange={updateFields} />
             </div>
             <div className="input__container">
               <label htmlFor="names">Nombres</label>
-              <input id='names' type="text" name='first_name' value={employee.first_name || ""} onChange={updateFields} />
+              <input required id='names' type="text" name='first_name' value={employee.first_name || ""} onChange={updateFields} />
             </div>
             <div className="input__container">
               <label htmlFor="lastName">Apellidos</label>
-              <input id='lastName' type="text" name='last_name' value={employee.last_name || ""} onChange={updateFields}/>
+              <input required id='lastName' type="text" name='last_name' value={employee.last_name || ""} onChange={updateFields}/>
             </div>
             <div className="input__container">
               <label htmlFor="dob">Fecha de nacimiento</label>
-              <input id='dob' type="date" name='dob' value={employee.dob || ""} onChange={updateFields} />
+              <input required id='dob' type="date" name='dob' value={employee.dob || ""} onChange={updateFields} />
             </div>
             <div className="input__container">
               <label htmlFor="ocupation">Profesión</label>
-              <input id='ocupation' type="text" name='profession' value={employee.profession || ""}  onChange={updateFields} />
+              <input required id='ocupation' type="text" name='profession' value={employee.profession || ""}  onChange={updateFields} />
             </div>
             <div className="input__container">
               <label htmlFor="salary">Aspiración Salarial</label>
-              <input id='salary' type="number" name='salary' value={employee.salary || ""} onChange={updateFields} />
+              <input required id='salary' type="number" name='salary' value={employee.salary || ""} onChange={updateFields} />
             </div>
             <div className="input__container">
               <label htmlFor="email">E-mail</label>
-              <input id='email' type="email" name='email' value={employee.email || ""} onChange={updateFields} />
+              <input required id='email' type="email" name='email' value={employee.email || ""} onChange={updateFields} />
             </div>
             <div className="button__container">
-            <button onClick={createEmployee} className='generic-button'>{editCandidate ? "Editar Perfil" : "Crear Perfil"}</button>
+            <button action='submit' onClick={createEmployee} className='generic-button'>{editCandidate ? "Editar Perfil" : "Crear Perfil"}</button>
             </div>
         </form>
       </section>

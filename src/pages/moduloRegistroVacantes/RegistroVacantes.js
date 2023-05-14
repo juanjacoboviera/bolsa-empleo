@@ -25,7 +25,6 @@ const RegistroVacantes = () => {
     
   }, [])
   
-  console.log(candidates)
   return (
    <>
     <header>

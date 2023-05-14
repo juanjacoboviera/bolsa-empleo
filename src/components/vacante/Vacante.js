@@ -1,13 +1,24 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import './vacante.css'
+
 const Vacante = ({offer, candidates}) => {
-    console.log(candidates)
+    const [candidateName, setCandidateName] = useState('')
+
+    const updateField = (evt) => {
+        console.log(evt.target.value)
+        evt.preventDefault()
+        setCandidateName(evt.target.value);
+      }
+
     const salary = offer.salary;
-    const formatter = new Intl.NumberFormat('en', {
-    minimumFractionDigits: 0,
-    useGrouping: true,
-});
-const formattedSalary = formatter.format(salary)
+    const formatter = new Intl.NumberFormat('en', {minimumFractionDigits: 0, useGrouping: true,});
+    const formattedSalary = formatter.format(salary)
+
+    const applyToOffer = () =>{
+
+    }
+    console.log(candidateName)
+
   return (
     <section className='container --jobOffer-modification'>
         <div className="header__container">
@@ -22,8 +33,8 @@ const formattedSalary = formatter.format(salary)
         <div className="actions__container">
             <div className="assign-candidate__container">
             <select name="" id="">
-                <option>Seleccione candidato</option>
-                {candidates.map(candidate =>  <option>{candidates && candidate.first_name} {candidates && candidate.last_name}</option> )}
+                <option onChange={updateField}>Seleccione candidato</option>
+                {candidates.map(candidate =>  <option value={candidates && candidate.first_name}>{candidates && candidate.first_name} {candidates && candidate.last_name}</option> )}
             </select>
             <button className='generic-button'>Postular</button>
             </div>
