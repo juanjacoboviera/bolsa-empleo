@@ -7,7 +7,7 @@ CREATE TABLE document_type (
 
 CREATE TABLE candidates (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    document_type BIGINT UNSIGNED,
+    document_type BIGINT UNSIGNED ,
     document_number BIGINT UNSIGNED,
     first_name VARCHAR(20),
     last_name VARCHAR(20),
@@ -16,7 +16,8 @@ CREATE TABLE candidates (
     salary BIGINT,
     email VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (document_type) REFERENCES document_type(id)
 );
 
 
@@ -26,8 +27,10 @@ CREATE TABLE job_offers (
     job_description TEXT,
     company_name VARCHAR(50),
     salary BIGINT,
+    candidate BIGINT UNSIGNED,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (candidate) REFERENCES candidates(id)
 );
 
 INSERT INTO document_type (type_name) VALUES ('Cédula Ciudadania'), ('Cédula Extranjería'), ('Pasaporte'), ('Otros');
