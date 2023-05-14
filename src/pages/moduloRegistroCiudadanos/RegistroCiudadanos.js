@@ -1,34 +1,54 @@
 import React, {useState, useEffect} from 'react'
 import Nav from '../../components/nav/Nav'
-import './registroCiudadano.css'
+import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import swal from 'sweetalert';
+import './registroCiudadano.css'
 
 const RegistroCiudadanos = () => {
   
-  const [employee, setEmployee ] = useState({})
+  const [employee, setEmployee ] = useState({});
   const [documentTypes, setDocumentTypes] = useState([]);
+  const params = useParams();
+  const { id } = params;
+  const [editCandidate, setEditCandidate] = useState(id);
   const navigate = useNavigate()
+  const isDisabled = editCandidate ? true : false
   
   useEffect(()=>{
+    if(editCandidate){
+      const url = 'http://mesopotamico.com/proyectos/bolsa-empleo/';
+      const data = {
+        action: 'get',
+        table: 'job_offers',
+      }
+      fetch(url+'?action=get&table=candidates')
+      .then(data=> data.json())
+      .then(results =>{
+        const correctCandidate = results.find(candidate => candidate.id == editCandidate)
+        setEmployee(correctCandidate)
+      })
+    }
+
     const url = 'http://mesopotamico.com/proyectos/bolsa-empleo/';
     const data = {
       action: 'get',
       table: 'job_offers',
     }
-    //fetch(url, {method:'POST', mode: 'no-cors', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) }).then(data => data.json())
     fetch(url+'?action=get&table=document_type')
     .then(data=> data.json())
     .then(results => setDocumentTypes(results))
     
   }, [])
+  console.log(id)
 
   const updateFields = (evt) => {
     evt.preventDefault()
     setEmployee({...employee, [evt.target.name]: evt.target.value});
   }
 
-  const createEmployee = (e) =>{
-    e.preventDefault()
+  const createEmployee = (evt) =>{
+    evt.preventDefault()
     const url = 'http://mesopotamico.com/proyectos/bolsa-empleo/';
     let fields = []
     let values = []
@@ -42,6 +62,11 @@ const RegistroCiudadanos = () => {
     fetch(url+`?action=save&table=candidates&fields=${fields}&values=${values}`)
     .then(data=> data.json())
     .then(results => navigate("/editar-perfiles/"+ results.id))
+    if(editCandidate){
+      swal("Usuario editado!", "El usuario se ha editado de manera exitosa!", "success");
+    }
+    swal("Usuario Creado!", "El usuario se ha registrado de manera exitosa!", "success");
+    setEmployee({})
   }
 
   return (
@@ -52,20 +77,20 @@ const RegistroCiudadanos = () => {
     <main>
       <section className='container --form-modification'>
         <div className="form__description">
-          <h1 className='form__title'>Registra tu Perfil</h1>
-          <p>Conviertete en un miembro de nuestra bolsa de empleo y recibe beneficios.</p>
+          <h1 className='form__title'>{editCandidate ? "Editar Perfil" : "Registrar Perfil"}</h1>
+          <p>{editCandidate ? "" : "Registra el perfil del candidato para acceder a los beneficios de la bolsa de empleo."}</p>
         </div>
         <form className='form__registration' action="">
           <div className="input__container">
               <label htmlFor="idType">Tipo de Documento</label>
-              <select name="document_type" id="idType" value={employee.document_type} onChange={updateFields}>
+              <select name="document_type" id="idType" disabled={isDisabled} value={employee.document_type} onChange={updateFields}>
                 <option value="">Selecciona un tipo</option> 
               {documentTypes.map(type =>  <option key={type.id} value={type.id} >{type.type_name}</option> )}
             </select>
           </div>
             <div className="input__container">
               <label htmlFor="document">Número de documento</label>
-              <input id='document' name='document_number' type="number" value={employee.document_number || ""} onChange={updateFields} />
+              <input id='document' name='document_number' disabled={isDisabled} type="number" value={employee.document_number || ""} onChange={updateFields} />
             </div>
             <div className="input__container">
               <label htmlFor="names">Nombres</label>
@@ -92,7 +117,7 @@ const RegistroCiudadanos = () => {
               <input id='email' type="email" name='email' value={employee.email || ""} onChange={updateFields} />
             </div>
             <div className="button__container">
-            <button onClick={createEmployee} className='generic-button'>Crear Perfil</button>
+            <button onClick={createEmployee} className='generic-button'>{editCandidate ? "Editar Perfil" : "Crear Perfil"}</button>
             </div>
         </form>
       </section>

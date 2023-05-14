@@ -4,6 +4,7 @@ import Nav from '../../components/nav/Nav'
 import './registroVacantes.css'
 
 const RegistroVacantes = () => {
+  const [candidates, setCandidates] = useState([])
   const [jobOffers, setJobOffers] = useState([]);
 
   useEffect(()=>{
@@ -17,8 +18,14 @@ const RegistroVacantes = () => {
     .then(data=> data.json())
     .then(results => setJobOffers(results))
     
+  
+    fetch(url+'?action=get&table=candidates')
+    .then(data=> data.json())
+    .then(results =>setCandidates(results))
+    
   }, [])
-
+  
+  console.log(candidates)
   return (
    <>
     <header>
@@ -27,7 +34,7 @@ const RegistroVacantes = () => {
    </header>
    <main>
       <h1 className='page__title'>Vacantes</h1>
-      {jobOffers.map(offer => <Vacante key={offer.id} offer={offer}></Vacante>)}
+      {jobOffers.map(offer => <Vacante key={offer.id} offer={offer} candidates={candidates}></Vacante>)}
    </main>
    </>
 

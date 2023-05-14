@@ -1,7 +1,7 @@
 import React from 'react'
 import './vacante.css'
-const Vacante = ({offer}) => {
-    
+const Vacante = ({offer, candidates}) => {
+    console.log(candidates)
     const salary = offer.salary;
     const formatter = new Intl.NumberFormat('en', {
     minimumFractionDigits: 0,
@@ -23,15 +23,12 @@ const formattedSalary = formatter.format(salary)
             <div className="assign-candidate__container">
             <select name="" id="">
                 <option>Seleccione candidato</option>
-                <option>Juan Jacobo Viera</option>
-                <option>René Orozco</option>
-                <option>Alejandro Lozano</option>
-                <option>Walter López</option>
+                {candidates.map(candidate =>  <option>{candidates && candidate.first_name} {candidates && candidate.last_name}</option> )}
             </select>
             <button className='generic-button'>Postular</button>
             </div>
             <span className='salary__span'>
-                <p>Salario:{formattedSalary}</p>
+                <p>Salario: ${formattedSalary}</p>
             </span>
         </div>
         <div className="description__container">
