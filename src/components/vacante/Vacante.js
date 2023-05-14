@@ -6,7 +6,6 @@ const Vacante = ({offer, candidates, setJobOffers}) => {
     const [candidateId, setCandidateId] = useState('')
 
     const updateField = (evt) => {
-        console.log(evt.target.value)
         evt.preventDefault()
         setCandidateId(evt.target.value);
       }
@@ -59,7 +58,7 @@ const Vacante = ({offer, candidates, setJobOffers}) => {
         </div>
         <div className="actions__container">
             <div className="assign-candidate__container">
-            <select value={offer?.candidate || ''} disabled={offer?.candidate} name="" id="" onChange={updateField}>
+            <select value={offer?.candidate || candidateId} disabled={offer?.candidate} name="" id="" onChange={updateField}>
                 <option>Seleccione candidato</option>
                 {candidates.map(candidate =>  <option key={candidate.id}  value={candidate.id}>{candidate?.first_name} {candidate?.last_name}</option> )}
             </select>
