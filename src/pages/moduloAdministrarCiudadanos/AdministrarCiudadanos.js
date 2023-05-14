@@ -9,7 +9,7 @@ const AdministrarCiudadanos = () => {
 
   useEffect(()=>{
     if(candidates.length == 0){
-      const url = 'http://mesopotamico.com/proyectos/bolsa-empleo/';
+      const url = 'https://boldsample.com/proyectos/bolsa-empleo/';
       const data = {
         action: 'get',
         table: 'job_offers',

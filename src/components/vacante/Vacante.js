@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react'
+import swal from 'sweetalert';
 import './vacante.css'
 
-const Vacante = ({offer, candidates}) => {
-    const [candidateName, setCandidateName] = useState('')
+const Vacante = ({offer, candidates, setJobOffers}) => {
+    const [candidateId, setCandidateId] = useState('')
 
     const updateField = (evt) => {
         console.log(evt.target.value)
         evt.preventDefault()
-        setCandidateName(evt.target.value);
+        setCandidateId(evt.target.value);
       }
 
     const salary = offer.salary;
@@ -15,9 +16,35 @@ const Vacante = ({offer, candidates}) => {
     const formattedSalary = formatter.format(salary)
 
     const applyToOffer = () =>{
+        if(!candidateId){
+            swal("Debes seleccionar un candidato!", "Primero debes seleccionar un candidato y luego oprimir el botón postular!", "warning");
+
+        }else{
+            const url = 'https://boldsample.com/proyectos/bolsa-empleo/';
+            fetch(url+`?action=get&table=job_offers&condition=candidate%3D${candidateId}`)
+            .then(data => data.json())
+            .then(results => {
+                if(results.length){
+                    swal("Candidato no disponible!", "El usuario ya se postuló a otra vacante!", "warning")
+
+                }else{
+                        fetch(url+`?action=update&table=job_offers&row=${offer.id}&fields=candidate&values=${candidateId}`)
+                        .then(data=> data.json())
+                        .then(results =>{
+                          swal("Usuario Postulado!", "El usuario se ha Postulado de manera exitosa!", "success")
+                          setJobOffers([]);
+                        
+                        })
+                    
+                }
+                
+            })
+            
+           
+        }
 
     }
-    console.log(candidateName)
+    
 
   return (
     <section className='container --jobOffer-modification'>
@@ -32,18 +59,18 @@ const Vacante = ({offer, candidates}) => {
         </div>
         <div className="actions__container">
             <div className="assign-candidate__container">
-            <select name="" id="">
-                <option onChange={updateField}>Seleccione candidato</option>
-                {candidates.map(candidate =>  <option value={candidates && candidate.first_name}>{candidates && candidate.first_name} {candidates && candidate.last_name}</option> )}
+            <select value={offer?.candidate || ''} disabled={offer?.candidate} name="" id="" onChange={updateField}>
+                <option>Seleccione candidato</option>
+                {candidates.map(candidate =>  <option key={candidate.id}  value={candidate.id}>{candidate?.first_name} {candidate?.last_name}</option> )}
             </select>
-            <button className='generic-button'>Postular</button>
+            <button onClick={applyToOffer} disabled={offer.candidate} className='generic-button'>{offer?.candidate ? "No Disponible" : "Postular"}</button>
             </div>
             <span className='salary__span'>
                 <p>Salario: ${formattedSalary}</p>
             </span>
         </div>
         <div className="description__container">
-            <p>{offer.job_description}</p>
+            <p>{offer?.job_description}</p>
         </div>
 
     </section>

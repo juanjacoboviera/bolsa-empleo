@@ -16,11 +16,20 @@ const Perfil = ({candidate, setCandidates}) => {
 
   const deleteCandidate = (e) =>{
     e.preventDefault();
-    const url = 'http://mesopotamico.com/proyectos/bolsa-empleo/';
-    fetch(url+`?action=delete&table=candidates&row=${candidate.id}`)
+    const url = 'https://boldsample.com/proyectos/bolsa-empleo/';
+    fetch(url+`?action=update&table=job_offers&fields=candidate&value=&condition=candidate%3D${candidate.id}`)
     .then(data=> data.json())
-    .then(results => setCandidates([]))
-    swal("Perfil Eliminado!", "El candidato se ha eliminado de manera éxitosa", "success");
+    .then(results => {
+      return fetch(url+`?action=delete&table=candidates&row=${candidate.id}`)
+
+    })
+    .then(data => data.json())
+    .then(results => {
+      setCandidates([])
+      swal("Perfil Eliminado!", "El candidato se ha eliminado de manera éxitosa", "success")
+    })
+    
+  ;
 
     
   }
